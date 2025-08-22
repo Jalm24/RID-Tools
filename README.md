@@ -18,7 +18,7 @@ The main uses are:
 
 RID-Tools uses several community-made tools to disassemble a .cci file, obtain its permissions, modify them, and repackage everything into a ready-to-use .cia file.
 
-- RID-Api and RID-SmallDB: a small REST API I made myself to record and display title IDs of community-made games (not necessarily Unity games), using a non-relational MongoDB database.
+- [RID-Api and RID-SmallDB](https://rid-system.onrender.com/): a small REST API I made myself to record and display title IDs of community-made games (not necessarily Unity games), using a non-relational MongoDB database.
 
 - [ctrtool](https://github.com/3DSGuy/Project_CTR): a tool to read/extract Nintendo 3DS files. 
 	>Used to extract EXEFs, ROMFS, and exheader.bin from a .cci.
