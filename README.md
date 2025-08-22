@@ -54,4 +54,11 @@ These patches are as follows:
 	
 - Force static memory compression
 	> perfect for improving performance
-    
+
+
+## Credits
+Thanks to
+- [Dimolade](https://github.com/Dimolade/)
+- [Retro Indie Dev](https://discord.gg/SGtzrbhS2y) (Discord Server)
+- Annoying
+- And all the tools already mentioned
