@@ -1,0 +1,5 @@
+*.meta
+config.dat
+/.vs
+player.cs
+*.unity

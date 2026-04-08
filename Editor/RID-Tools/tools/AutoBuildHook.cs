@@ -24,13 +24,15 @@ public class AutoBuildHook
 
 		data = core.LoadConfig();
 		data.cciPath = pathToBuiltProject;
+        string directory = Path.GetDirectoryName(pathToBuiltProject);
+        string fileName = Path.GetFileNameWithoutExtension(pathToBuiltProject);
+        data.ciaOutputPath = Path.Combine(directory, fileName + ".cia"); ;
 		core.SaveConfig(data);
 
 		// Solo actuar si se genera un .cci
 		if (!pathToBuiltProject.EndsWith(".cci")) return;
 		try
 		{
-			Debug.Log(data.autoCiaPatcher.ToString());
 			if (data.autoCiaPatcher)
 			{
 				Debug.Log("Invocando rebuildcia...");

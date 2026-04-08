@@ -177,26 +177,48 @@ public class configMenu : EditorWindow {
 		index = EditorGUILayout.Popup("Set SystemMode to: ", index, opciones);
 		data.memoryMode = opciones[index];
 
-		//ruta al archivo .cci
-		EditorGUILayout.BeginHorizontal();
-		data.cciPath = EditorGUILayout.TextField("Path to .cci File", data.cciPath);
-		if (GUILayout.Button("Browse", GUILayout.Width(60)))
-		{
-			string ruta = EditorUtility.OpenFilePanel("Select .cci", Environment.CurrentDirectory, "cci");
-			if (!string.IsNullOrEmpty(ruta)) data.cciPath = ruta;
-		}
-		EditorGUILayout.EndHorizontal();
+        //ruta al archivo .cci
+        EditorGUILayout.BeginHorizontal();
+        data.cciPath = EditorGUILayout.TextField("Path to .cci File", data.cciPath);
+        if (GUILayout.Button("Browse", GUILayout.Width(60)))
+        {
+            string oldPath = data.cciPath;
+            string ruta = EditorUtility.OpenFilePanel("Select .cci", Environment.CurrentDirectory, "cci");
 
-		//carpeta donde guardar el archivo cia resultante
-		EditorGUILayout.BeginHorizontal();
-		data.ciaOutputPath = EditorGUILayout.TextField("Output .cia file", data.ciaOutputPath);
-		if (GUILayout.Button("Browse", GUILayout.Width(60)))
-		{
-			string ruta = EditorUtility.OpenFolderPanel("Save .cia here", Environment.CurrentDirectory, "builds");
-			if (!string.IsNullOrEmpty(ruta)) data.ciaOutputPath = ruta;
-		}
-		EditorGUILayout.EndHorizontal();
-		GUILayout.EndVertical();
+            // Validación
+            data.cciPath = (!string.IsNullOrEmpty(ruta)) ? ruta : oldPath;
+        }
+        EditorGUILayout.EndHorizontal();
+
+        // output cia
+        EditorGUILayout.BeginHorizontal();
+        data.ciaOutputPath = EditorGUILayout.TextField("Output .cia file", data.ciaOutputPath);
+        if (GUILayout.Button("Browse", GUILayout.Width(60)))
+        {
+            string oldOutputPath = data.ciaOutputPath;
+
+            // SaveFilePanel
+            string ruta = EditorUtility.SaveFilePanel(
+                "Save .cia file",
+                Environment.CurrentDirectory,
+                "patched_game.cia",
+                "cia"
+            );
+
+            // Si el usuario cancela, ruta será una cadena vacía ""
+            if (!string.IsNullOrEmpty(ruta))
+            {
+                data.ciaOutputPath = ruta;
+				ruta = data.ciaOutputPath;
+            }
+            else
+            {
+                data.ciaOutputPath = oldOutputPath;
+				oldOutputPath = data.ciaOutputPath;
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+        GUILayout.EndVertical();
 
 		//espacio entre ajustes
 		GUILayout.Space(2);
@@ -324,7 +346,7 @@ public class configMenu : EditorWindow {
 			rebuild.rebuildcia();
 			//desarma el cci, extrae el exheader, lo modifica y vuelve a armar pero en cia
 		}
-		GUILayout.EndVertical();
+        GUILayout.EndVertical();
 
 
 		//cajas exteriores
